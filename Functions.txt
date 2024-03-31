@@ -1,0 +1,41 @@
+FUNCIONES
+Función 1: Obtener Total de Ventas por Empleado: Esta función devuelve el total de ventas realizadas por un empleado específico.
+DELIMITER //
+CREATE FUNCTION TotalVentasEmpleado (empleado_id INT) RETURNS INT
+BEGIN
+    DECLARE total_ventas INT;
+    SELECT SUM(pf.Monto) INTO total_ventas
+    FROM Producto_financiero pf
+    JOIN Ventas v ON pf.Prod_financieroID = v.Prod_financieroID
+    WHERE v.EmpleadoID = empleado_id;
+    RETURN total_ventas;
+END //
+DELIMITER ;
+
+Función 2: Plazo promedio de productos financieros: Esta función determinara cual es el plazo promedio elegido por el cliente para realizar su operación.
+DELIMITER //
+CREATE FUNCTION PlazoPromedioPorTipo(tipo_producto VARCHAR(200)) RETURNS DECIMAL(10,2)
+BEGIN
+    DECLARE plazo_promedio DECIMAL(10,2);
+    SELECT AVG(Plazo) INTO plazo_promedio
+    FROM Producto_financiero
+    WHERE Tipo_producto = tipo_producto;
+    RETURN plazo_promedio;
+END //
+DELIMITER ;
+
+
+Función 3: Monto otorgado en productos financiero más alto: Esta función determinara cual es el monto mas alto vendido entre los tipos de productos financieros
+DELIMITER //
+CREATE FUNCTION ClienteConMontoMasAlto() RETURNS VARCHAR(100)
+BEGIN
+    DECLARE cliente_nombre VARCHAR(100);
+    SELECT c.Nombre INTO cliente_nombre
+    FROM Cliente c
+    JOIN Producto_financiero pf ON c.ClienteID = pf.ClienteID
+    ORDER BY pf.Monto DESC
+    LIMIT 1;
+    RETURN cliente_nombre;
+END //
+DELIMITER ;
+
