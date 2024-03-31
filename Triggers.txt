@@ -1,0 +1,47 @@
+TRIGGERS
+1)	Trigger para Actualizar Total de Ventas al Insertar una Venta:
+
+Descripción: Este trigger actualiza automáticamente el total de ventas en la tabla de Sucursal cada vez que se inserta una nueva venta.
+Objetivo: Mantener actualizado el total de ventas por sucursal en tiempo real.
+
+DELIMITER //
+CREATE TRIGGER ActualizarTotalVentasDespuesDeInsertar
+AFTER INSERT ON Ventas
+FOR EACH ROW
+BEGIN
+    UPDATE Sucursal s
+    SET TotalVentas = TotalVentas + NEW.Monto
+    WHERE s.SucursalID = NEW.SucursalID;
+END //
+DELIMITER ;
+
+2)	Trigger para Eliminar Ventas Asociadas al Eliminar un Cliente:
+
+Descripción: Este trigger elimina automáticamente todas las ventas asociadas a un cliente cuando se elimina dicho cliente.
+Objetivo: Mantener la integridad referencial y eliminar datos relacionados cuando sea necesario
+
+DELIMITER //
+CREATE TRIGGER EliminarVentasDespuesDeEliminarCliente
+BEFORE DELETE ON Cliente
+FOR EACH ROW
+BEGIN
+    DELETE FROM Ventas WHERE ClienteID = OLD.ClienteID;
+END //
+DELIMITER ;
+
+3)	Trigger para Actualizar Ventas Después de Modificar Monto de Producto Financiero:
+
+Descripción: Este trigger se ejecutará después de actualizar el monto de un producto financiero y actualizará automáticamente las ventas asociadas a ese producto.
+Objetivo: Reflejar cambios en las ventas cuando se actualizan montos de productos financieros
+
+DELIMITER //
+CREATE TRIGGER ActualizarVentasDespuesDeActualizarMonto
+AFTER UPDATE ON Producto_financiero
+FOR EACH ROW
+BEGIN
+    UPDATE Ventas v
+    SET v.Monto = NEW.Monto
+    WHERE v.Prod_financieroID = NEW.Prod_financieroID;
+END //
+DELIMITER 
+
