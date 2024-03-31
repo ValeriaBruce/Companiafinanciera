@@ -1,0 +1,98 @@
+use servicios_financieros;
+
+CREATE TABLE Cliente (
+ClienteID INT PRIMARY KEY AUTO_INCREMENT ,
+Nombre VARCHAR (100),
+Direccion VARCHAR (100),
+Correo_electronico VARCHAR(100)
+);
+
+CREATE TABLE Producto_financiero (
+Prod_financieroID INT PRIMARY KEY,
+Monto INT (255),
+Tipo_producto VARCHAR (200),
+Tasa_de_interes INT (200),
+Plazo INT(200),
+Empleado VARCHAR(200),
+Sucursal VARCHAR(200),
+Nombre VARCHAR(200)
+
+);
+
+CREATE TABLE Empleado (
+EmpleadoID INT PRIMARY KEY,
+Nombre VARCHAR (100),
+Cargo VARCHAR (100),
+Sucursal VARCHAR(100),
+Producto_financiero VARCHAR(100),
+Ventas INT(100),
+Correo_electronico VARCHAR(100)
+
+);
+
+CREATE TABLE Sucursal (
+SucursalID INT PRIMARY KEY ,
+Localidad VARCHAR (400),
+EmpleadoID VARCHAR (400),
+Tipo_producto VARCHAR(400),
+Correo_electronico VARCHAR(400)
+);
+
+CREATE TABLE Ventas (
+VentasID INT PRIMARY KEY,
+Sucursal VARCHAR (100),
+Empleado VARCHAR (100),
+Prestamo INT(100),
+Cliente VARCHAR (100),
+Correo_electronico VARCHAR(100)
+);
+
+
+
+CREATE TABLE Solicitud (
+SolicitudID INT PRIMARY KEY,
+EmpleadoID VARCHAR (400),
+Producto_financiero VARCHAR(100),
+ClienteID VARCHAR (100)
+);
+
+CREATE TABLE Analisis_Crediticio (
+AnalisisCID INT PRIMARY KEY,
+EmpleadoID VARCHAR (400),
+ClienteID VARCHAR (100)
+);
+
+CREATE TABLE Facturacion (
+FacturacionID INT PRIMARY KEY,
+EmpleadoID VARCHAR (400),
+ClienteID VARCHAR (100),
+Monto INT (100)
+);
+
+CREATE TABLE Pagos(
+PagosID INT PRIMARY KEY,
+EmpleadoID VARCHAR (400),
+ClienteID VARCHAR (100),
+Monto INT (100)
+);
+
+CREATE TABLE Cuentas (
+CuentaID INT PRIMARY KEY,
+EmpleadoID VARCHAR (400),
+ClienteID VARCHAR (100),
+Producto_financiero VARCHAR(100),
+FacturacionID VARCHAR(100),
+PagosID INT (255),
+Saldo_deudor INT (255)
+);
+
+CREATE TABLE Atencion_al_cliente (
+AtclienteID INT PRIMARY KEY,
+EmpleadoID VARCHAR (400),
+CuentaID VARCHAR (200),
+Reclamo VARCHAR(100),
+Consulta VARCHAR (200)
+);
+
+
+
