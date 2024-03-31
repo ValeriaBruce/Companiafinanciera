@@ -1,0 +1,123 @@
+Script de inserción de Datos
+INSERT INTO cliente (ClienteID, Nombre, Direccion, Correo_electronico)
+VALUES
+    (1, 'Juan Pérez', 'Juan B. Justo 12',  'juan@email.com'),
+    (2, 'María López', 'Corrientes 234', 'maria@email.com'),
+    (4, 'Carlos Ramírez', 'Boer 45','carlos@email.com');
+
+INSERT INTO cliente (ClienteID, Nombre, Direccion, Correo_electronico)
+VALUES	
+    (5, 'Pedro García', 'Calle 7', 'pedro@email.com'),
+    (6, 'Ana Martínez', 'Paseo Colón 890', 'ana@email.com'),
+    (7, 'Carlos Sánchez', 'Apartado 1234', 'carlos@email.com'),
+    (8, 'Eduardo González & Asociados', 'Av. Libertador 2000','eduardo@email.com');
+    
+    
+INSERT INTO producto_financiero (Prod_financieroID, Monto,Tipo_producto, tasa_de_interes, plazo, EmpleadoID, SucursalID, ClienteID)
+VALUES
+    (101, '2000000', 'Credito personal','95', 24, 301, 201, 1),
+    (102, '3000000', 'Credito personal','95', 24, 302, 202, 2),
+    (103, '60000000', 'Credito hipotecario','95', 100, 303, 203, 3);
+
+
+INSERT INTO producto_financiero (Prod_financieroID, Monto,Tipo_producto, tasa_de_interes, plazo, EmpleadoID, SucursalID, ClienteID)
+VALUES 
+    (104, '60000000', 'Credito hipotecario','95', 150, 303, 203, 5),
+	(105, '60000000', 'Credito hipotecario','110', 150, 301, 201, 6),
+    (106, '60000000', 'Credito personal','95', 18, 303, 203, 7),
+    (107, '60000000', 'Credito personal','110', 12, 302, 202, 8);
+
+
+INSERT INTO Sucursal (SucursalID, localidad, Correo_electronico, EmpleadoID, ClienteID)
+VALUES
+    (201, 'Cipolleti','cipolletti@serviciosfinan.com', 301,6),
+    (202, 'Plottier','plottier@serviciosfinan.com', 302,8),
+    (203, 'Neuquen','neuquen@serviciosfinan.com', 303,7),
+	(203, 'Neuquen','neuquen@serviciosfinan.com', 303,5);
+    
+
+INSERT INTO empleado (EmpleadoID, nombre, cargo, sucursal, Prod_financieroID, VentasID, Correo_electronico)
+VALUES
+    (301, 'J.Julian', 'vendedor','Cipolletti', 101,42,'cipolletti@serviciosfinan.com'),
+    (302, 'A.Salinas', 'vendedor','Plottier',102,43,'plottier@serviciosfinan.com'),
+    (303, 'B.Diaz', 'Gerente de ventas','Neuquen',103,56,'neuquen@serviciosfinan.com');
+
+
+INSERT INTO ventas (VentasID, SucusalID, EmpleadoID, Prod_financieroID, ClienteID)
+VALUES
+    (42, 201, 301, 101, 1),
+    (43, 202, 302, 102, 2),
+    (56, 203, 303, 103, 3);
+    
+INSERT INTO ventas (VentasID, SucusalID, EmpleadoID, Prod_financieroID, ClienteID)
+VALUES
+	(12, 203, 303, 104, 5),
+    (7, 201, 301, 105, 6),
+    (44, 203, 303, 106, 7),
+    (05, 202, 303, 107, 8);
+    
+INSERT INTO solicitud (SolicitudID, EmpleadoID, Producto_financiero, ClienteID)
+VALUES
+    (1, 301, 'Credito personal', 102),
+    (2, 302, 'Credito personal', 200),
+    (3, 303, 'Credito personal', 104);
+    
+INSERT INTO solicitud (SolicitudID, EmpleadoID, Producto_financiero, ClienteID)
+VALUES   
+    (4, 303, 'Credito hipotecario', 5),
+    (5, 301, 'Credito hipotecario', 6),
+    (6, 303, 'Credito personal', 7),
+    (7, 302, 'Credito personal', 8);
+    
+INSERT INTO analisis_crediticio (AnalisisCID, EmpleadoID, ClienteID)
+VALUES
+    (05, 301, 102),
+    (07, 302, 200),
+    (04, 303, 104);
+
+INSERT INTO facturacion (FacturacionID, EmpleadoID, ClienteID, Monto)
+VALUES
+    (1020, 301, 102,250000),
+    (1030, 302, 200,650000),
+    (1040, 303, 104,124000);
+
+INSERT INTO facturacion (FacturacionID, EmpleadoID, ClienteID, Monto)
+VALUES
+    (1050, 303, 5,450000),
+    (1060, 301, 6,350000),
+    (1070, 303, 7,80000),
+    (1080, 302, 8,20000);
+        
+INSERT INTO cuentas (CuentaID, EmpleadoID, ClienteID, producto_financiero, facturacionID, PagosID, Saldo_deudor)
+VALUES
+    (102650, 301, 102,'Credito personal',150,203,1020000),
+    (35245, 302, 200,'Credito personal',120,402,1400000),
+    (145552, 303, 104,'Credito personal',565,405,965000);
+    
+INSERT INTO cuentas (CuentaID, EmpleadoID, ClienteID, producto_financiero, facturacionID, PagosID, Saldo_deudor)
+VALUES   
+    (2563, 303, 5,'Credito hipotecario',1050,204,45000000),
+    (10359, 301, 6,'Credito hipotecario',1060,205,30000000),
+    (23589, 303, 7,'Credito personal',1070,206,4000000),
+    (45789, 302, 8,'Credito personal',1080,207,2500000);
+
+INSERT INTO pagos (PagosID, EmpleadoID, clienteID, Monto)
+VALUES
+    (203, 301, 102,145265.45),
+    (402, 302, 200,289565.10),
+    (405, 303, 104,85960.12);
+
+INSERT INTO pagos (PagosID, EmpleadoID, clienteID, Monto)
+VALUES
+	(407, 301, 5,450000),
+    (520, 302, 6,350000),
+    (605, 303, 7,80000),
+    (704, 302, 8,20000);
+    
+INSERT INTO atencion_al_cliente (AtclienteID, EmpleadoID, CuentaID, Reclamo, Consulta)
+VALUES
+    (785, 301, 45877,'Reclamo',NULL),
+    (415, 302, 105695, NULL, 'Consulta'),
+    (898, 303, 10025,NULL, 'Consulta');
+
+    
