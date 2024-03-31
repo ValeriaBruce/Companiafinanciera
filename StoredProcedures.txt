@@ -1,0 +1,81 @@
+STORED PROCEDURE
+1)Procedimiento para Insertar Nuevo Producto Financiero:
+
+Descripción: Este procedimiento permite insertar un nuevo producto financiero en la base de datos.
+Objetivo: Facilitar la creación de nuevos productos financieros.
+Tablas utilizadas: Producto_financiero
+
+DELIMITER //
+CREATE PROCEDURE InsertarNuevoProductoFinanciero(
+    IN p_Monto INT,
+    IN p_TipoProducto VARCHAR(200),
+    IN p_TasaInteres INT,
+    IN p_Plazo INT,
+    IN p_EmpleadoID VARCHAR(200),
+    IN p_SucursalID VARCHAR(200),
+    IN p_ClienteID INT
+)
+BEGIN
+    INSERT INTO Producto_financiero (Monto, Tipo_producto, Tasa_de_interes, Plazo, EmpleadoID, SucursalID, ClienteID)
+    VALUES (p_Monto, p_TipoProducto, p_TasaInteres, p_Plazo, p_EmpleadoID, p_SucursalID, p_ClienteID);
+END //
+DELIMITER ;
+
+
+2)Procedimiento para Actualizar Información del Empleado:
+
+Descripción: Este procedimiento actualiza la información de un empleado.
+Objetivo: Mantener actualizada la información de los empleados.
+Tablas utilizadas: Empleado
+
+DELIMITER //
+CREATE PROCEDURE ActualizarInformacionEmpleado(
+    IN p_EmpleadoID INT,
+    IN p_NuevoNombre VARCHAR(100),
+    IN p_NuevoCargo VARCHAR(100),
+    IN p_NuevaSucursal VARCHAR(100),
+    IN p_NuevoCorreo VARCHAR(100)
+)
+BEGIN
+    UPDATE Empleado
+    SET Nombre = p_NuevoNombre, Cargo = p_NuevoCargo, Sucursal = p_NuevaSucursal, Correo_electronico = p_NuevoCorreo
+    WHERE EmpleadoID = p_EmpleadoID;
+END //
+DELIMITER ;
+
+
+3)Procedimiento para Calcular Total de Ventas por Sucursal:
+
+Descripción: Este procedimiento calcula el total de ventas para una sucursal específica.
+Objetivo: Proporcionar información sobre el rendimiento de cada sucursal.
+Tablas utilizadas: Producto_financiero, Ventas.
+
+DELIMITER //
+CREATE PROCEDURE CalcularTotalVentasPorSucursal(
+    IN p_SucursalID INT,
+    OUT p_TotalVentas INT
+)
+BEGIN
+    SELECT SUM(pf.Monto) INTO p_TotalVentas
+    FROM Producto_financiero pf
+    JOIN Ventas v ON pf.Prod_financieroID = v.Prod_financieroID
+    WHERE pf.SucursalID = p_SucursalID;
+END //
+DELIMITER ;
+
+
+4)Procedimiento para Eliminar Producto Financiero y Ventas Asociadas:
+
+Descripción: Este procedimiento elimina un producto financiero y las ventas asociadas a ese producto.
+Objetivo: Permitir la eliminación ordenada de productos financieros.
+Tablas utilizadas: Producto_financiero, Ventas.
+
+DELIMITER //
+CREATE PROCEDURE EliminarProductoFinancieroYVentas(
+    IN p_ProdFinancieroID INT
+)
+BEGIN
+    DELETE FROM Ventas WHERE Prod_financieroID = p_ProdFinancieroID;
+    DELETE FROM Producto_financiero WHERE Prod_financieroID = p_ProdFinancieroID;
+END //
+DELIMITER ;
