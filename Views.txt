@@ -1,0 +1,15 @@
+Vista 1: Vista_Cliente_ProductoFinanciero:  
+Descripción: Esta vista mostrará la información de los clientes junto con los productos financieros que han adquirido.
+Tablas que la componen: Cliente, Producto_financiero.
+Vista 2: Vista_Sucursal_ProductoFinanciero: 
+Descripción: Esta vista proporcionará un resumen de las ventas mensuales agrupadas por sucursal.
+Tablas que la componen: Sucursal, Producto_financiero
+Vista 3: Vista_Ventas_Empleados: 
+Descripción: Esta vista mostrará los empleados junto con el total de ventas realizadas por cada uno de ellos.
+Tablas que la componen: Ventas, Sucursal, Empleado, Producto_financiero
+Vista 4: Vista_Ventas_Detalles: 
+Descripción: Esta vista mostrara el detalle de las ventas efectuadas por los clientes.
+Tablas que la componen: Ventas, Sucursal, Empleado, Producto_financiero, Cliente
+Vista 5: Vista_ProductosMasVendidos: 
+Descripción: Esta vista mostrará los productos financieros con mayor cantidad de ventas.
+Tablas que la componen: Ventas, , Producto_financiero,
